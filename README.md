@@ -68,6 +68,13 @@ Computed once during preprocessing and cached for instant access:
 - **Summary statistics:** Per-column mean, median, missing rates, distributions
 - **Segment analysis:** Default rates broken down by income type, education, gender, housing, occupation, etc.
 
+### Example of Query
+
+🧑: What are the top features predicting default?
+🤖: Model AUC: 0.7746
+Top feature: EXT_SOURCE_3 (importance: 55348)
+![plot](src/assets/newplot.png)
+
 ## Future Work
 
 - **LLM dependence:** Response quality depends on the underlying LLM's code-generation ability. Gemini produces more reliable results than smaller local models — *we can add an LLM routing layer that scores query complexity and dispatches simple queries (counts, filters) to a lightweight local model while forwarding complex analytical questions to Gemini, reducing cost without sacrificing quality.*
@@ -76,3 +83,5 @@ Computed once during preprocessing and cached for instant access:
 - **No real-time model training:** The LightGBM model is pre-trained during preprocessing; users cannot trigger retraining from the UI — *we can add a "Retrain Model" button in Streamlit that launches a background thread running LightGBM `train()` on the current dataset, streams progress to the UI via `st.status`, and hot-swaps the cached feature-importance results once training completes.*
 - **Code execution risks:** While builtins are restricted, the sandbox is not a full security boundary — intended for trusted analytical use, not adversarial inputs — *We can replace the in-process `exec()` sandbox with a subprocess-based executor using `subprocess.run()` with resource limits (timeout, memory cap via `resource` module), or containerise execution in a Docker sidecar with read-only filesystem mounts and no network access.*
 - **No followup Questions:** The user can't add a followup question or request to the already answered queries - *We can add N turns chat history to the prompt to take history into consideration as well.*
+
+
