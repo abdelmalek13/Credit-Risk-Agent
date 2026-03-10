@@ -70,8 +70,8 @@ Computed once during preprocessing and cached for instant access:
 
 ### Example of Query
 
-🧑: What are the top features predicting default?
-🤖: Model AUC: 0.7746
+🧑: What are the top features predicting default?  
+🤖: Model AUC: 0.7746  
 Top feature: EXT_SOURCE_3 (importance: 55348)
 ![plot](src/assets/newplot.png)
 
